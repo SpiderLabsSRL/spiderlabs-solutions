@@ -1,5 +1,11 @@
 import { useState } from "react";
-import { Send, Mail, Phone, MapPin, CheckCircle } from "lucide-react";
+import { Send, Mail, Phone, MapPin, CheckCircle, Instagram, Facebook, Linkedin } from "lucide-react";
+
+const socialLinks = [
+  { icon: Instagram, label: "Instagram", href: "https://instagram.com/spiderlabs", color: "hover:bg-pink-500" },
+  { icon: Facebook, label: "Facebook", href: "https://facebook.com/spiderlabs", color: "hover:bg-blue-600" },
+  { icon: Linkedin, label: "LinkedIn", href: "https://linkedin.com/company/spiderlabs", color: "hover:bg-blue-700" },
+];
 
 const ContactSection = () => {
   const [formState, setFormState] = useState({
@@ -12,7 +18,6 @@ const ContactSection = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Simular envío
     setIsSubmitted(true);
     setTimeout(() => {
       setIsSubmitted(false);
@@ -78,6 +83,25 @@ const ContactSection = () => {
                     <div className="text-sm text-silver-300">Ubicación</div>
                     <div className="font-medium">Bolivia</div>
                   </div>
+                </div>
+              </div>
+
+              {/* Social Media Links */}
+              <div className="mt-8 pt-6 border-t border-navy-700">
+                <div className="text-sm text-silver-300 mb-4">Síguenos en redes sociales</div>
+                <div className="flex items-center gap-3">
+                  {socialLinks.map((social) => (
+                    <a
+                      key={social.label}
+                      href={social.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={`w-12 h-12 bg-navy-800 rounded-lg flex items-center justify-center transition-all duration-300 ${social.color} hover:text-primary-foreground hover:scale-110`}
+                      aria-label={social.label}
+                    >
+                      <social.icon className="w-5 h-5" />
+                    </a>
+                  ))}
                 </div>
               </div>
             </div>
