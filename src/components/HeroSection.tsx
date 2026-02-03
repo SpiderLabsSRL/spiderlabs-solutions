@@ -71,22 +71,6 @@ const HeroSection = () => {
             </button>
           </div>
 
-          {/* Stats */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mt-20 pt-10 border-t border-navy-700/50 animate-fade-up" style={{ animationDelay: "0.5s" }}>
-            {[
-              { value: "100+", label: "Proyectos" },
-              { value: "50+", label: "Clientes" },
-              { value: "5+", label: "Años" },
-              { value: "24/7", label: "Soporte" },
-            ].map((stat, index) => (
-              <div key={index} className="text-center">
-                <div className="text-3xl md:text-4xl font-display font-bold text-primary-foreground mb-1">
-                  {stat.value}
-                </div>
-                <div className="text-silver-300 text-sm">{stat.label}</div>
-              </div>
-            ))}
-          </div>
         </div>
       </div>
 
