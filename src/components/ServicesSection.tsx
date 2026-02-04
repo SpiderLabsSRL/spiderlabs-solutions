@@ -7,6 +7,7 @@ import {
   Headphones,
   ArrowRight
 } from "lucide-react";
+import { motion } from "framer-motion";
 
 const services = [
   {
@@ -41,6 +42,25 @@ const services = [
   },
 ];
 
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+    },
+  },
+};
+
+const cardVariants = {
+  hidden: { opacity: 0, y: 40 },
+  visible: { 
+    opacity: 1, 
+    y: 0,
+    transition: { duration: 0.5 }
+  },
+};
+
 const ServicesSection = () => {
   const scrollToContact = () => {
     const element = document.querySelector("#contacto");
@@ -59,7 +79,13 @@ const ServicesSection = () => {
       </div>
 
       <div className="container mx-auto px-4 relative z-10">
-        <div className="text-center mb-16">
+        <motion.div 
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-16"
+        >
           <span className="inline-block text-accent font-semibold text-sm uppercase tracking-wider mb-4">
             Lo Que Hacemos
           </span>
@@ -69,17 +95,29 @@ const ServicesSection = () => {
           <p className="text-muted-foreground max-w-2xl mx-auto">
             Ofrecemos soluciones tecnológicas integrales para impulsar el crecimiento de tu empresa
           </p>
-        </div>
+        </motion.div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+        <motion.div 
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-50px" }}
+          className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto"
+        >
           {services.map((service, index) => (
-            <div
+            <motion.div
               key={index}
-              className="group bg-card rounded-2xl p-6 md:p-8 border border-border hover:border-accent/30 shadow-sm hover:shadow-xl transition-all duration-500 hover:-translate-y-2"
+              variants={cardVariants}
+              whileHover={{ y: -8, transition: { duration: 0.3 } }}
+              className="group bg-card rounded-2xl p-6 md:p-8 border border-border hover:border-accent/30 shadow-sm hover:shadow-xl transition-all duration-500"
             >
-              <div className="w-14 h-14 bg-navy-900 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+              <motion.div 
+                whileHover={{ scale: 1.1, rotate: 5 }}
+                transition={{ type: "spring", stiffness: 300 }}
+                className="w-14 h-14 bg-navy-900 rounded-xl flex items-center justify-center mb-6"
+              >
                 <service.icon className="w-7 h-7 text-primary-foreground" />
-              </div>
+              </motion.div>
 
               <h3 className="text-xl font-display font-bold text-foreground mb-3">
                 {service.title}
@@ -96,9 +134,9 @@ const ServicesSection = () => {
                 <span>Saber más</span>
                 <ArrowRight className="w-4 h-4" />
               </button>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );
