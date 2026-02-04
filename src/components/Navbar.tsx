@@ -41,7 +41,7 @@ const Navbar = () => {
               alt="SpiderLabs Logo" 
               className="h-12 w-12 rounded-lg object-cover"
             />
-            <div className="hidden sm:block">
+            <div>
               <span className="text-primary-foreground font-display font-bold text-lg">
                 SPIDERLABS
               </span>
