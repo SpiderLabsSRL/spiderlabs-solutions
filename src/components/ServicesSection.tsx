@@ -42,6 +42,13 @@ const services = [
 ];
 
 const ServicesSection = () => {
+  const scrollToContact = () => {
+    const element = document.querySelector("#contacto");
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
     <section id="servicios" className="py-24 bg-muted/30 relative overflow-hidden">
       {/* Background Pattern */}
@@ -82,7 +89,10 @@ const ServicesSection = () => {
                 {service.description}
               </p>
 
-              <button className="inline-flex items-center gap-2 text-accent font-semibold text-sm group-hover:gap-3 transition-all duration-300">
+              <button 
+                onClick={scrollToContact}
+                className="inline-flex items-center gap-2 text-accent font-semibold text-sm group-hover:gap-3 transition-all duration-300"
+              >
                 <span>Saber más</span>
                 <ArrowRight className="w-4 h-4" />
               </button>
