@@ -245,7 +245,7 @@ const ContactSection = () => {
 
                   <div className="mb-6">
                     <label className="block text-sm font-medium text-foreground mb-2">
-                      Teléfono
+                      Teléfono*
                     </label>
                     <input
                       type="tel"
