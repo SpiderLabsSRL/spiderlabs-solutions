@@ -3,9 +3,9 @@ import { motion } from "framer-motion";
 import logoBackground from "@/assets/logo-background.png";
 
 const socialLinks = [
-  { icon: Instagram, label: "Instagram", href: "https://instagram.com/spiderlabs", color: "hover:bg-pink-500" },
-  { icon: Facebook, label: "Facebook", href: "https://facebook.com/spiderlabs", color: "hover:bg-blue-600" },
-  { icon: Linkedin, label: "LinkedIn", href: "https://linkedin.com/company/spiderlabs", color: "hover:bg-blue-700" },
+  { icon: Instagram, label: "Instagram", href: "https://www.instagram.com/spiderlabs.srl?igsh=MWI0bndkbXpkMm1vYg==", color: "hover:bg-pink-500" },
+  { icon: Facebook, label: "Facebook", href: "https://www.facebook.com/share/1DN4nxKo8w/?mibextid=wwXIfr", color: "hover:bg-blue-600" },
+  { icon: Linkedin, label: "LinkedIn", href: "https://www.linkedin.com/company/spiderlabssrl/", color: "hover:bg-blue-700" },
 ];
 
 const HeroSection = () => {
@@ -53,7 +53,7 @@ const HeroSection = () => {
             className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-navy-700/50 border border-navy-600 mb-8"
           >
             <Sparkles className="w-4 h-4 text-accent" />
-            <span className="text-silver-200 text-sm font-medium">Software Development Company</span>
+            <span className="text-silver-200 text-sm font-medium">Empresa de desarrollo de software</span>
           </motion.div>
 
           {/* Main Heading */}
@@ -63,9 +63,9 @@ const HeroSection = () => {
             transition={{ duration: 0.7, delay: 0.3 }}
             className="text-4xl md:text-6xl lg:text-7xl font-display font-bold text-primary-foreground mb-6"
           >
-            Transformamos Ideas en
+            DISEÑAMOS TECNOLOGÍA A
             <span className="block mt-2 bg-gradient-to-r from-accent to-blue-300 bg-clip-text text-transparent">
-              Soluciones Digitales
+              TU MEDIDA
             </span>
           </motion.h1>
 

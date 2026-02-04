@@ -3,9 +3,9 @@ import { Send, Mail, Phone, MapPin, CheckCircle, Instagram, Facebook, Linkedin }
 import { motion } from "framer-motion";
 
 const socialLinks = [
-  { icon: Instagram, label: "Instagram", href: "https://instagram.com/spiderlabs", color: "hover:bg-pink-500" },
-  { icon: Facebook, label: "Facebook", href: "https://facebook.com/spiderlabs", color: "hover:bg-blue-600" },
-  { icon: Linkedin, label: "LinkedIn", href: "https://linkedin.com/company/spiderlabs", color: "hover:bg-blue-700" },
+  { icon: Instagram, label: "Instagram", href: "https://www.instagram.com/spiderlabs.srl?igsh=MWI0bndkbXpkMm1vYg==", color: "hover:bg-pink-500" },
+  { icon: Facebook, label: "Facebook", href: "https://www.facebook.com/share/1DN4nxKo8w/?mibextid=wwXIfr", color: "hover:bg-blue-600" },
+  { icon: Linkedin, label: "LinkedIn", href: "https://www.linkedin.com/company/spiderlabssrl/", color: "hover:bg-blue-700" },
 ];
 
 const ContactSection = () => {
@@ -69,9 +69,9 @@ const ContactSection = () => {
 
               <div className="space-y-6">
                 {[
-                  { icon: Mail, label: "Email", value: "contacto@spiderlabs.com" },
-                  { icon: Phone, label: "Teléfono", value: "+591 XXX XXX XX" },
-                  { icon: MapPin, label: "Ubicación", value: "Bolivia" },
+                  { icon: Mail, label: "Email", value: "spiderlabssrl@gmail.com" },
+                  { icon: Phone, label: "Teléfono", value: "+591 67461937" },
+                  { icon: MapPin, label: "Ubicación", value: "Cochabamba - Bolivia" },
                 ].map((item, index) => (
                   <motion.div 
                     key={index}

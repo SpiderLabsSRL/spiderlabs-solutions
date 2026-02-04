@@ -37,7 +37,7 @@ const demos = [
   { id: "gimnasio" as const, title: "Sistema Gimnasio", icon: Dumbbell, color: "from-orange-500 to-red-500" },
   { id: "clinica" as const, title: "Clínica Médica", icon: Stethoscope, color: "from-teal-500 to-cyan-500" },
   { id: "ventas" as const, title: "Gestión de Ventas", icon: ShoppingCart, color: "from-violet-500 to-purple-500" },
-  { id: "cafeteria" as const, title: "Cafetería POS", icon: Coffee, color: "from-amber-500 to-orange-500" },
+  { id: "cafeteria" as const, title: "Cafetería", icon: Coffee, color: "from-amber-500 to-orange-500" },
   { id: "landing" as const, title: "Landing Page", icon: Globe, color: "from-blue-500 to-indigo-500" },
   { id: "ecommerce" as const, title: "E-commerce", icon: Store, color: "from-emerald-500 to-green-500" },
 ];
@@ -52,12 +52,6 @@ const GymDemo = () => {
   ]);
   const [showAddModal, setShowAddModal] = useState(false);
   const [newMemberName, setNewMemberName] = useState("");
-
-  const classes = [
-    { id: 1, name: "Spinning", time: "07:00", instructor: "Pedro", spots: 5, enrolled: 12 },
-    { id: 2, name: "Yoga", time: "09:00", instructor: "Ana", spots: 3, enrolled: 17 },
-    { id: 3, name: "CrossFit", time: "18:00", instructor: "Miguel", spots: 0, enrolled: 20 },
-  ];
 
   const addMember = () => {
     if (newMemberName.trim()) {
@@ -84,7 +78,6 @@ const GymDemo = () => {
       <div className="flex bg-muted/50 rounded-lg p-1">
         {[
           { key: "members", label: "Miembros", icon: Users },
-          { key: "classes", label: "Clases", icon: Calendar },
           { key: "payments", label: "Pagos", icon: CreditCard },
         ].map((tab) => (
           <button
@@ -167,41 +160,6 @@ const GymDemo = () => {
               </div>
             </div>
           )}
-        </div>
-      )}
-
-      {/* Classes Tab */}
-      {activeTab === "classes" && (
-        <div className="space-y-2">
-          {classes.map((c) => (
-            <div key={c.id} className="p-3 bg-muted/30 rounded-lg">
-              <div className="flex items-center justify-between mb-2">
-                <div className="flex items-center gap-2">
-                  <Activity className="w-4 h-4 text-accent" />
-                  <span className="font-medium text-sm">{c.name}</span>
-                </div>
-                <span className="text-xs bg-navy-900 text-primary-foreground px-2 py-1 rounded">{c.time}</span>
-              </div>
-              <div className="flex items-center justify-between text-xs text-muted-foreground">
-                <span>Instructor: {c.instructor}</span>
-                <div className="flex items-center gap-1">
-                  <Users className="w-3 h-3" />
-                  <span>{c.enrolled}/{c.enrolled + c.spots}</span>
-                </div>
-              </div>
-              <div className="mt-2 h-1.5 bg-muted rounded-full overflow-hidden">
-                <div 
-                  className={`h-full rounded-full transition-all ${c.spots === 0 ? "bg-red-500" : "bg-accent"}`}
-                  style={{ width: `${(c.enrolled / (c.enrolled + c.spots)) * 100}%` }}
-                />
-              </div>
-              <button className={`w-full mt-2 py-1.5 rounded text-xs font-medium transition-colors ${
-                c.spots === 0 ? "bg-muted text-muted-foreground cursor-not-allowed" : "bg-accent/10 text-accent hover:bg-accent/20"
-              }`} disabled={c.spots === 0}>
-                {c.spots === 0 ? "Clase llena" : `Inscribirse (${c.spots} lugares)`}
-              </button>
-            </div>
-          ))}
         </div>
       )}
 

@@ -22,8 +22,8 @@ const services = [
   },
   {
     icon: Smartphone,
-    title: "Apps Móviles",
-    description: "Aplicaciones nativas e híbridas para iOS y Android que conectan tu negocio con tus clientes.",
+    title: "Apps de Escritorio",
+    description: "Aplicaciones de escritorio potentes y flexibles que elevan la productividad de tu negocio y fortalecen la relación con tus clientes.",
   },
   {
     icon: Database,
