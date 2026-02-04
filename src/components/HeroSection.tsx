@@ -1,6 +1,12 @@
-import { ArrowRight, Code2, Sparkles } from "lucide-react";
+import { ArrowRight, Code2, Sparkles, Instagram, Facebook, Linkedin } from "lucide-react";
 import { motion } from "framer-motion";
 import logoBackground from "@/assets/logo-background.png";
+
+const socialLinks = [
+  { icon: Instagram, label: "Instagram", href: "https://instagram.com/spiderlabs", color: "hover:bg-pink-500" },
+  { icon: Facebook, label: "Facebook", href: "https://facebook.com/spiderlabs", color: "hover:bg-blue-600" },
+  { icon: Linkedin, label: "LinkedIn", href: "https://linkedin.com/company/spiderlabs", color: "hover:bg-blue-700" },
+];
 
 const HeroSection = () => {
   const scrollToContact = () => {
@@ -99,6 +105,29 @@ const HeroSection = () => {
               <Code2 className="w-5 h-5" />
               <span>Ver Servicios</span>
             </motion.button>
+          </motion.div>
+
+          {/* Social Media Links */}
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.7 }}
+            className="flex items-center justify-center gap-4 mt-10"
+          >
+            {socialLinks.map((social) => (
+              <motion.a
+                key={social.label}
+                href={social.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                whileHover={{ scale: 1.15, rotate: 5 }}
+                whileTap={{ scale: 0.95 }}
+                className={`w-12 h-12 bg-navy-800/60 border border-navy-600 rounded-lg flex items-center justify-center transition-all duration-300 ${social.color} hover:text-primary-foreground hover:border-transparent`}
+                aria-label={social.label}
+              >
+                <social.icon className="w-5 h-5 text-silver-300" />
+              </motion.a>
+            ))}
           </motion.div>
         </div>
       </div>
