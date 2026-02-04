@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Send, Mail, Phone, MapPin, CheckCircle, Instagram, Facebook, Linkedin } from "lucide-react";
+import { Send, Mail, Phone, MapPin, CheckCircle, Instagram, Facebook, Linkedin, ChevronDown } from "lucide-react";
 import { motion } from "framer-motion";
 
 const socialLinks = [
@@ -8,22 +8,70 @@ const socialLinks = [
   { icon: Linkedin, label: "LinkedIn", href: "https://www.linkedin.com/company/spiderlabssrl/", color: "hover:bg-blue-700" },
 ];
 
+const services = [
+  "Sistema Gimnasio",
+  "Clínica Médica", 
+  "Gestión de ventas",
+  "Cafetería",
+  "Landing Page",
+  "E-commerce"
+];
+
 const ContactSection = () => {
   const [formState, setFormState] = useState({
     name: "",
     email: "",
     phone: "",
+    service: "",
     message: "",
   });
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
+  const handleServiceSelect = (service: string) => {
+    setFormState((prev) => ({ ...prev, service }));
+    setIsDropdownOpen(false);
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Construir el mensaje de WhatsApp
+    const whatsappMessage = `*Nuevo contacto desde el sitio web:*%0A%0A` +
+      `*Nombre:* ${formState.name}%0A` +
+      `*Email:* ${formState.email}%0A` +
+      `*Teléfono:* ${formState.phone}%0A` +
+      `*Servicio de interés:* ${formState.service}%0A` +
+      `*Mensaje:* ${formState.message}%0A%0A` +
+      `_Este mensaje fue enviado desde el formulario de contacto de SpiderLabs_`;
+    
+    // Abrir WhatsApp con el mensaje predefinido
+    window.open(`https://wa.me/59167461937?text=${whatsappMessage}`, '_blank');
+    
+    // Mostrar estado de enviado
     setIsSubmitted(true);
     setTimeout(() => {
       setIsSubmitted(false);
-      setFormState({ name: "", email: "", phone: "", message: "" });
+      setFormState({ 
+        name: "", 
+        email: "", 
+        phone: "", 
+        service: "", 
+        message: "" 
+      });
     }, 3000);
+  };
+
+  const handleEmailClick = () => {
+    window.location.href = "mailto:spiderlabssrl@gmail.com?subject=Consulta desde el sitio web&body=Hola SpiderLabs, me gustaría obtener más información sobre sus servicios.";
+  };
+
+  const handlePhoneClick = () => {
+    window.open("https://wa.me/59167461937", '_blank');
+  };
+
+  const handleLocationClick = () => {
+    window.open("https://maps.app.goo.gl/Rs33jo73CcPANJYWA?g_st=ic", '_blank');
   };
 
   return (
@@ -68,25 +116,47 @@ const ContactSection = () => {
               </p>
 
               <div className="space-y-6">
-                {[
-                  { icon: Mail, label: "Email", value: "spiderlabssrl@gmail.com" },
-                  { icon: Phone, label: "Teléfono", value: "+591 67461937" },
-                  { icon: MapPin, label: "Ubicación", value: "Cochabamba - Bolivia" },
-                ].map((item, index) => (
-                  <motion.div 
-                    key={index}
-                    whileHover={{ x: 5 }}
-                    className="flex items-center gap-4 cursor-pointer"
-                  >
-                    <div className="w-12 h-12 bg-accent/20 rounded-lg flex items-center justify-center">
-                      <item.icon className="w-5 h-5 text-accent" />
-                    </div>
-                    <div>
-                      <div className="text-sm text-silver-300">{item.label}</div>
-                      <div className="font-medium">{item.value}</div>
-                    </div>
-                  </motion.div>
-                ))}
+                <motion.div 
+                  whileHover={{ x: 5 }}
+                  className="flex items-center gap-4 cursor-pointer"
+                  onClick={handleEmailClick}
+                >
+                  <div className="w-12 h-12 bg-accent/20 rounded-lg flex items-center justify-center">
+                    <Mail className="w-5 h-5 text-accent" />
+                  </div>
+                  <div>
+                    <div className="text-sm text-silver-300">Email</div>
+                    <div className="font-medium hover:text-accent transition-colors">spiderlabssrl@gmail.com</div>
+                  </div>
+                </motion.div>
+
+                <motion.div 
+                  whileHover={{ x: 5 }}
+                  className="flex items-center gap-4 cursor-pointer"
+                  onClick={handlePhoneClick}
+                >
+                  <div className="w-12 h-12 bg-accent/20 rounded-lg flex items-center justify-center">
+                    <Phone className="w-5 h-5 text-accent" />
+                  </div>
+                  <div>
+                    <div className="text-sm text-silver-300">Teléfono</div>
+                    <div className="font-medium hover:text-accent transition-colors">+591 67461937</div>
+                  </div>
+                </motion.div>
+
+                <motion.div 
+                  whileHover={{ x: 5 }}
+                  className="flex items-center gap-4 cursor-pointer"
+                  onClick={handleLocationClick}
+                >
+                  <div className="w-12 h-12 bg-accent/20 rounded-lg flex items-center justify-center">
+                    <MapPin className="w-5 h-5 text-accent" />
+                  </div>
+                  <div>
+                    <div className="text-sm text-silver-300">Ubicación</div>
+                    <div className="font-medium hover:text-accent transition-colors">Cochabamba - Bolivia</div>
+                  </div>
+                </motion.div>
               </div>
 
               {/* Social Media Links */}
@@ -136,10 +206,10 @@ const ContactSection = () => {
                     <CheckCircle className="w-8 h-8 text-green-500" />
                   </motion.div>
                   <h4 className="text-xl font-display font-bold text-foreground mb-2">
-                    ¡Mensaje Enviado!
+                    ¡Redirigiendo a WhatsApp!
                   </h4>
                   <p className="text-muted-foreground">
-                    Nos pondremos en contacto contigo pronto.
+                    Se abrirá WhatsApp para que puedas enviar tu mensaje.
                   </p>
                 </motion.div>
               ) : (
@@ -147,7 +217,7 @@ const ContactSection = () => {
                   <div className="grid md:grid-cols-2 gap-6 mb-6">
                     <motion.div whileFocus={{ scale: 1.02 }}>
                       <label className="block text-sm font-medium text-foreground mb-2">
-                        Nombre completo
+                        Nombre completo *
                       </label>
                       <input
                         type="text"
@@ -160,7 +230,7 @@ const ContactSection = () => {
                     </motion.div>
                     <div>
                       <label className="block text-sm font-medium text-foreground mb-2">
-                        Email
+                        Email *
                       </label>
                       <input
                         type="email"
@@ -175,7 +245,7 @@ const ContactSection = () => {
 
                   <div className="mb-6">
                     <label className="block text-sm font-medium text-foreground mb-2">
-                      Teléfono (opcional)
+                      Teléfono
                     </label>
                     <input
                       type="tel"
@@ -186,9 +256,53 @@ const ContactSection = () => {
                     />
                   </div>
 
+                  <div className="mb-6 relative">
+                    <label className="block text-sm font-medium text-foreground mb-2">
+                      Servicio de interés *
+                    </label>
+                    <div className="relative">
+                      <button
+                        type="button"
+                        onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                        className="w-full px-4 py-3 rounded-lg border border-border bg-background text-foreground focus:ring-2 focus:ring-accent focus:border-transparent outline-none transition-all duration-300 text-left flex justify-between items-center"
+                      >
+                        <span className={formState.service ? "text-foreground" : "text-muted-foreground"}>
+                          {formState.service || "Selecciona un servicio"}
+                        </span>
+                        <ChevronDown className={`w-5 h-5 transition-transform duration-300 ${isDropdownOpen ? 'rotate-180' : ''}`} />
+                      </button>
+                      
+                      {isDropdownOpen && (
+                        <motion.div 
+                          initial={{ opacity: 0, y: -10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          className="absolute z-10 w-full mt-1 bg-card border border-border rounded-lg shadow-lg overflow-hidden"
+                        >
+                          <div className="py-1 max-h-60 overflow-auto">
+                            {services.map((service) => (
+                              <button
+                                key={service}
+                                type="button"
+                                onClick={() => handleServiceSelect(service)}
+                                className="w-full px-4 py-3 text-left hover:bg-muted transition-colors duration-200 text-foreground"
+                              >
+                                {service}
+                              </button>
+                            ))}
+                          </div>
+                        </motion.div>
+                      )}
+                    </div>
+                    {formState.service && (
+                      <p className="mt-2 text-sm text-accent">
+                        Seleccionado: {formState.service}
+                      </p>
+                    )}
+                  </div>
+
                   <div className="mb-6">
                     <label className="block text-sm font-medium text-foreground mb-2">
-                      Mensaje
+                      Mensaje *
                     </label>
                     <textarea
                       required
@@ -207,8 +321,12 @@ const ContactSection = () => {
                     className="w-full flex items-center justify-center gap-2 px-8 py-4 bg-navy-900 hover:bg-navy-800 text-primary-foreground rounded-lg font-semibold transition-all duration-300 shadow-lg hover:shadow-xl"
                   >
                     <Send className="w-5 h-5" />
-                    <span>Enviar Mensaje</span>
+                    <span>Enviar por WhatsApp</span>
                   </motion.button>
+
+                  <p className="text-xs text-muted-foreground mt-4 text-center">
+                    * Al hacer clic en "Enviar por WhatsApp", se abrirá la aplicación con tu mensaje predefinido
+                  </p>
                 </>
               )}
             </form>
