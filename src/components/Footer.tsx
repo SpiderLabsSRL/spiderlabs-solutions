@@ -27,7 +27,7 @@ const Footer = () => {
 
           {/* Social / Links */}
           <div className="flex items-center gap-4 text-silver-300 text-sm">
-            <span>Software Development</span>
+            <span>Desarrollo de Software</span>
           </div>
         </div>
       </div>
