@@ -1,11 +1,12 @@
-import { ArrowRight, Code2, Sparkles, Instagram, Facebook, Linkedin } from "lucide-react";
+import { ArrowRight, Code2, Sparkles, Instagram, Facebook, Linkedin, MessageCircle } from "lucide-react";
 import { motion } from "framer-motion";
 import logoBackground from "@/assets/logo-background.png";
 
 const socialLinks = [
-  { icon: Instagram, label: "Instagram", href: "https://www.instagram.com/spiderlabs.srl?igsh=MWI0bndkbXpkMm1vYg==", color: "hover:bg-pink-500" },
-  { icon: Facebook, label: "Facebook", href: "https://www.facebook.com/share/1DN4nxKo8w/?mibextid=wwXIfr", color: "hover:bg-blue-600" },
+  { icon: Instagram, label: "Instagram", href: "https://www.instagram.com/spiderlabs.srl?igsh=NXRrNmo2N3U0d2xy&utm_source=qr", color: "hover:bg-pink-500" },
+  { icon: Facebook, label: "Facebook", href: "https://www.facebook.com/profile.php?id=61567902863647&locale=es_LA", color: "hover:bg-blue-600" },
   { icon: Linkedin, label: "LinkedIn", href: "https://www.linkedin.com/company/spiderlabssrl/", color: "hover:bg-blue-700" },
+  { icon: MessageCircle, label: "WhatsApp", href: "https://wa.me/59167461937", color: "hover:bg-green-600" },
 ];
 
 const HeroSection = () => {

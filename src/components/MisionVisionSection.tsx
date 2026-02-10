@@ -9,10 +9,14 @@ const MisionVisionSection = () => {
       
       <div className="container mx-auto px-4 relative z-10">
         <motion.div 
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.6 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ 
+            type: "spring" as const,
+            stiffness: 100,
+            damping: 15
+          }}
           className="text-center mb-16"
         >
           <span className="inline-block text-accent font-semibold text-sm uppercase tracking-wider mb-4">
@@ -29,20 +33,28 @@ const MisionVisionSection = () => {
         <div className="grid lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
           {/* Misión Card */}
           <motion.div 
-            initial={{ opacity: 0, x: -50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: "-50px" }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            whileHover={{ y: -4 }}
-            className="group relative bg-card rounded-2xl p-8 md:p-10 shadow-lg border border-border hover:border-accent/30 transition-all duration-500"
+            initial={{ opacity: 0, y: 20, scale: 0.98 }}
+            whileInView={{ opacity: 1, y: 0, scale: 1 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ 
+              type: "tween" as const,
+              duration: 0.4,
+              ease: [0.25, 0.46, 0.45, 0.94]
+            }}
+            whileHover={{ 
+              y: -6,
+              transition: { type: "spring" as const, stiffness: 400, damping: 25 }
+            }}
+            className="group relative bg-card rounded-2xl p-8 md:p-10 shadow-lg border border-border hover:border-accent/30 transition-all duration-200"
           >
-            <div className="absolute inset-0 bg-gradient-to-br from-accent/5 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+            <div className="absolute inset-0 bg-gradient-to-br from-accent/5 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             
             <div className="relative z-10">
               <div className="flex items-center gap-4 mb-6">
                 <motion.div 
-                  whileHover={{ scale: 1.1, rotate: -10 }}
-                  transition={{ type: "spring", stiffness: 300 }}
+                  whileHover={{ scale: 1.08, rotate: -5 }}
+                  whileTap={{ scale: 0.95 }}
+                  transition={{ type: "spring" as const, stiffness: 400, damping: 15 }}
                   className="w-14 h-14 bg-navy-900 rounded-xl flex items-center justify-center shadow-lg"
                 >
                   <Target className="w-7 h-7 text-primary-foreground" />
@@ -67,7 +79,20 @@ const MisionVisionSection = () => {
                 ].map((item, index) => (
                   <motion.div 
                     key={index} 
-                    whileHover={{ scale: 1.05, y: -2 }}
+                    initial={{ opacity: 0, y: 10 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ 
+                      type: "tween" as const,
+                      duration: 0.3,
+                      delay: 0.1 + index * 0.05
+                    }}
+                    whileHover={{ 
+                      scale: 1.05, 
+                      y: -2,
+                      transition: { type: "spring" as const, stiffness: 500, damping: 15 }
+                    }}
+                    whileTap={{ scale: 0.95 }}
                     className="text-center p-3 rounded-lg bg-muted/50 cursor-pointer"
                   >
                     <item.icon className="w-5 h-5 text-accent mx-auto mb-2" />
@@ -80,20 +105,29 @@ const MisionVisionSection = () => {
 
           {/* Visión Card */}
           <motion.div 
-            initial={{ opacity: 0, x: 50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: "-50px" }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            whileHover={{ y: -4 }}
-            className="group relative bg-navy-900 rounded-2xl p-8 md:p-10 shadow-lg border border-navy-700 hover:border-accent/30 transition-all duration-500"
+            initial={{ opacity: 0, y: 20, scale: 0.98 }}
+            whileInView={{ opacity: 1, y: 0, scale: 1 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ 
+              type: "tween" as const,
+              duration: 0.4,
+              ease: [0.25, 0.46, 0.45, 0.94],
+              delay: 0.1
+            }}
+            whileHover={{ 
+              y: -6,
+              transition: { type: "spring" as const, stiffness: 400, damping: 25 }
+            }}
+            className="group relative bg-navy-900 rounded-2xl p-8 md:p-10 shadow-lg border border-navy-700 hover:border-accent/30 transition-all duration-200"
           >
-            <div className="absolute inset-0 bg-gradient-to-br from-accent/10 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+            <div className="absolute inset-0 bg-gradient-to-br from-accent/10 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             
             <div className="relative z-10">
               <div className="flex items-center gap-4 mb-6">
                 <motion.div 
-                  whileHover={{ scale: 1.1, rotate: 10 }}
-                  transition={{ type: "spring", stiffness: 300 }}
+                  whileHover={{ scale: 1.08, rotate: 5 }}
+                  whileTap={{ scale: 0.95 }}
+                  transition={{ type: "spring" as const, stiffness: 400, damping: 15 }}
                   className="w-14 h-14 bg-accent rounded-xl flex items-center justify-center shadow-lg shadow-accent/30"
                 >
                   <Eye className="w-7 h-7 text-accent-foreground" />
@@ -118,7 +152,20 @@ const MisionVisionSection = () => {
                 ].map((item, index) => (
                   <motion.div 
                     key={index} 
-                    whileHover={{ scale: 1.05, y: -2 }}
+                    initial={{ opacity: 0, y: 10 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ 
+                      type: "tween" as const,
+                      duration: 0.3,
+                      delay: 0.15 + index * 0.05
+                    }}
+                    whileHover={{ 
+                      scale: 1.05, 
+                      y: -2,
+                      transition: { type: "spring" as const, stiffness: 500, damping: 15 }
+                    }}
+                    whileTap={{ scale: 0.95 }}
                     className="text-center p-3 rounded-lg bg-navy-800/50 cursor-pointer"
                   >
                     <item.icon className="w-5 h-5 text-accent mx-auto mb-2" />
