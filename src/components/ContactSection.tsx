@@ -34,8 +34,6 @@ const services = [
 const ContactSection = () => {
   const [formState, setFormState] = useState({
     name: "",
-    email: "",
-    phone: "",
     service: "",
     message: "",
   });
@@ -53,8 +51,6 @@ const ContactSection = () => {
     // Construir el mensaje de WhatsApp
     const whatsappMessage = `*Nuevo contacto desde el sitio web:*%0A%0A` +
       `*Nombre:* ${formState.name}%0A` +
-      `*Email:* ${formState.email}%0A` +
-      `*Teléfono:* ${formState.phone}%0A` +
       `*Servicio de interés:* ${formState.service}%0A` +
       `*Mensaje:* ${formState.message}%0A%0A` +
       `_Este mensaje fue enviado desde el formulario de contacto de SpiderLabs_`;
@@ -68,8 +64,6 @@ const ContactSection = () => {
       setIsSubmitted(false);
       setFormState({ 
         name: "", 
-        email: "", 
-        phone: "", 
         service: "", 
         message: "" 
       });
@@ -246,32 +240,6 @@ const ContactSection = () => {
                         placeholder="Tu nombre"
                       />
                     </motion.div>
-                    <div>
-                      <label className="block text-sm font-medium text-foreground mb-2">
-                        Email *
-                      </label>
-                      <input
-                        type="email"
-                        required
-                        value={formState.email}
-                        onChange={(e) => setFormState((prev) => ({ ...prev, email: e.target.value }))}
-                        className="w-full px-4 py-3 rounded-lg border border-border bg-background text-foreground focus:ring-2 focus:ring-accent focus:border-transparent outline-none transition-all duration-300"
-                        placeholder="tu@email.com"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="mb-6">
-                    <label className="block text-sm font-medium text-foreground mb-2">
-                      Teléfono*
-                    </label>
-                    <input
-                      type="tel"
-                      value={formState.phone}
-                      onChange={(e) => setFormState((prev) => ({ ...prev, phone: e.target.value }))}
-                      className="w-full px-4 py-3 rounded-lg border border-border bg-background text-foreground focus:ring-2 focus:ring-accent focus:border-transparent outline-none transition-all duration-300"
-                      placeholder="+591 XXX XXX XX"
-                    />
                   </div>
 
                   <div className="mb-6 relative">
