@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import logo from "@/assets/logo-spiderlabs.jpg";
@@ -13,47 +13,99 @@ const navLinks = [
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const navRef = useRef<HTMLElement>(null);
+
+  // Cerrar menú al hacer scroll
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsOpen(false);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Cerrar menú al hacer clic fuera
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (navRef.current && !navRef.current.contains(event.target as Node)) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
   const scrollToSection = (href: string) => {
-    // Remover el # para obtener el id
     const id = href.replace("#", "");
-    const element = document.getElementById(id);
     
-    if (element) {
-      // Smooth scroll al elemento
-      element.scrollIntoView({ 
-        behavior: "smooth",
-        block: "start",
-        inline: "nearest"
-      });
-    } else {
-      // Fallback: intentar con querySelector
-      const elementByQuery = document.querySelector(href);
-      if (elementByQuery) {
-        elementByQuery.scrollIntoView({ 
-          behavior: "smooth",
-          block: "start"
+    // Primero cerramos el menú
+    setIsOpen(false);
+    
+    // Pequeño delay para que se cierre el menú antes de hacer scroll
+    setTimeout(() => {
+      const element = document.getElementById(id);
+      
+      if (element) {
+        // Calcular la posición del navbar fijo
+        const navbarHeight = 80; // Altura aproximada del navbar en px
+        const elementPosition = element.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.pageYOffset - navbarHeight;
+        
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: "smooth"
         });
       } else {
-        // Si aún no funciona, hacer scroll al top
-        console.warn(`Elemento con id "${id}" no encontrado`);
-        window.scrollTo({ top: 0, behavior: "smooth" });
+        // Fallback para querySelector
+        const elementByQuery = document.querySelector(href);
+        if (elementByQuery) {
+          const elementPosition = elementByQuery.getBoundingClientRect().top;
+          const offsetPosition = elementPosition + window.pageYOffset - 80;
+          
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: "smooth"
+          });
+        }
       }
-    }
-    
-    // Cerrar el menú móvil
-    setIsOpen(false);
+    }, 300); // Tiempo suficiente para que se cierre la animación del menú
   };
 
-  const handleMobileLinkClick = (href: string) => {
-    // Pequeño retraso para asegurar que el DOM se actualice
-    setTimeout(() => {
-      scrollToSection(href);
-    }, 100);
+  // Función específica para móviles con manejo más robusto
+  const handleMobileClick = (href: string) => {
+    // Forzar el cierre inmediato
+    setIsOpen(false);
+    
+    // Esperar al siguiente ciclo de renderizado
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        const id = href.replace("#", "");
+        const element = document.getElementById(id);
+        
+        if (element) {
+          // Usar scrollIntoView con opciones
+          element.scrollIntoView({ 
+            behavior: "smooth",
+            block: "start"
+          });
+        } else {
+          // Intentar con offset manual
+          setTimeout(() => {
+            const targetElement = document.querySelector(href);
+            if (targetElement) {
+              targetElement.scrollIntoView({ behavior: "smooth", block: "start" });
+            }
+          }, 350);
+        }
+      });
+    });
   };
 
   return (
     <motion.nav 
+      ref={navRef}
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.5, ease: "easeOut" }}
@@ -118,20 +170,17 @@ const Navbar = () => {
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.3 }}
-              className="lg:hidden py-4 border-t border-navy-700 overflow-hidden"
+              className="lg:hidden py-4 border-t border-navy-700 overflow-hidden bg-navy-900"
             >
-              <div className="flex flex-col gap-4">
+              <div className="flex flex-col gap-2">
                 {navLinks.map((link, index) => (
-                  <motion.button
+                  <button
                     key={link.href}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.3, delay: index * 0.05 }}
-                    onClick={() => handleMobileLinkClick(link.href)}
-                    className="text-silver-200 hover:text-primary-foreground transition-colors duration-300 text-sm font-medium text-left py-2 px-4"
+                    onClick={() => handleMobileClick(link.href)}
+                    className="text-silver-200 hover:text-primary-foreground hover:bg-navy-800 transition-all duration-300 text-sm font-medium text-left py-3 px-6 rounded-md mx-2"
                   >
                     {link.label}
-                  </motion.button>
+                  </button>
                 ))}
               </div>
             </motion.div>
