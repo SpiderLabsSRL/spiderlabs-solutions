@@ -15,11 +15,41 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const scrollToSection = (href: string) => {
-    const element = document.querySelector(href);
+    // Remover el # para obtener el id
+    const id = href.replace("#", "");
+    const element = document.getElementById(id);
+    
     if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
+      // Smooth scroll al elemento
+      element.scrollIntoView({ 
+        behavior: "smooth",
+        block: "start",
+        inline: "nearest"
+      });
+    } else {
+      // Fallback: intentar con querySelector
+      const elementByQuery = document.querySelector(href);
+      if (elementByQuery) {
+        elementByQuery.scrollIntoView({ 
+          behavior: "smooth",
+          block: "start"
+        });
+      } else {
+        // Si aún no funciona, hacer scroll al top
+        console.warn(`Elemento con id "${id}" no encontrado`);
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
     }
+    
+    // Cerrar el menú móvil
     setIsOpen(false);
+  };
+
+  const handleMobileLinkClick = (href: string) => {
+    // Pequeño retraso para asegurar que el DOM se actualice
+    setTimeout(() => {
+      scrollToSection(href);
+    }, 100);
   };
 
   return (
@@ -35,6 +65,7 @@ const Navbar = () => {
           <motion.div 
             whileHover={{ scale: 1.05 }}
             className="flex items-center gap-3 cursor-pointer"
+            onClick={() => scrollToSection("#inicio")}
           >
             <img 
               src={logo} 
@@ -96,8 +127,8 @@ const Navbar = () => {
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.3, delay: index * 0.05 }}
-                    onClick={() => scrollToSection(link.href)}
-                    className="text-silver-200 hover:text-primary-foreground transition-colors duration-300 text-sm font-medium text-left py-2"
+                    onClick={() => handleMobileLinkClick(link.href)}
+                    className="text-silver-200 hover:text-primary-foreground transition-colors duration-300 text-sm font-medium text-left py-2 px-4"
                   >
                     {link.label}
                   </motion.button>
