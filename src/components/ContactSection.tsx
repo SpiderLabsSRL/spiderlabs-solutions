@@ -27,7 +27,8 @@ const services = [
   "Gestión de ventas",
   "Cafetería",
   "Landing Page",
-  "E-commerce"
+  "E-commerce",
+  "Otro"
 ];
 
 const ContactSection = () => {
