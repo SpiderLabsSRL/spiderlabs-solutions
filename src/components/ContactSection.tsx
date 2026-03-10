@@ -80,7 +80,7 @@ const ContactSection = () => {
 
   const handleLocationClick = () => {
     // Enlace a Google Maps con la dirección específica
-    window.open("https://maps.google.com/?q=Calle+San+Martin+y+Sucre,+Cochabamba+Bolivia", '_blank');
+    window.open("https://maps.app.goo.gl/n16F6eCAmPAU4fFW6", '_blank');
   };
 
   return (
