@@ -58,16 +58,6 @@ const HeroSection = () => {
 
       <div className="container mx-auto px-4 pt-20 pb-32 relative z-10">
         <div className="max-w-5xl mx-auto text-center">
-          {/* Badge */}
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-navy-700/50 border border-navy-600 mb-8"
-          >
-            <Sparkles className="w-4 h-4 text-accent" />
-            <span className="text-silver-200 text-sm font-medium">Empresa de desarrollo de software</span>
-          </motion.div>
 
           {/* Main Heading */}
           <motion.h1 
